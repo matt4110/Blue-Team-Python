@@ -1,4 +1,7 @@
 import os 
+import sys
+
+log_events = []
 
 def search_logs_for_ip(ip): 
 
@@ -10,11 +13,21 @@ def search_logs_for_ip(ip):
             with open(file, 'r', errors='ignore') as f:
                 lines = f.readlines() 
                 for line in lines: 
-                    if ip in line: print(f"[{file}] {line.strip()}") 
+                    if ip in line: 
+                        log_events.append((line.strip(), file))
         except Exception as e:
-            print(f"Error in {file} file: {e}") 
+            log_events.append((f"Error in {file} file: {e}", file))
 
 if __name__ == "__main__": 
 
-    target_ip = input("Input IP Address: ")     
+    if len(sys.argv) > 1: 
+        target_ip = sys.argv[1] 
+    else:
+        target_ip = input("Input IP Address: ")
+
     search_logs_for_ip(target_ip)
+
+    log_events.sort()
+
+    for item in log_events: 
+        print(f"{item[0]} {item[1]}")
