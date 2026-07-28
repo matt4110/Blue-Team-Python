@@ -2,7 +2,7 @@ import socket
 import time
 import requests
 
-SLACK_WEBHOOK_URL = "https://hooks.slack.com/triggers/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"
+SLACK_WEBHOOK_URL = "https://hooks.slack.com/triggers/"
 targets = [
     ("matt4110.com", 443, "TCP"),
     ("10.0.0.112", 443, "TCP")
